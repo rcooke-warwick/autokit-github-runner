@@ -1,0 +1,25 @@
+{
+  "name": "autokit-github-runner",
+  "version": "1.0.0",
+  "description": "Use this container to set up a balena device as a github self-hosted runner - with the [autokit](https://github.com/balena-io-hardware/autokit-interface-sw)!",
+  "main": "index.js",
+  "scripts": {
+    "test": "tap -t 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rcooke-warwick/autokit-github-runner.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rcooke-warwick/autokit-github-runner/issues"
+  },
+  "homepage": "https://github.com/rcooke-warwick/autokit-github-runner#readme",
+  "devDependencies": {
+    "tap": "^16.3.4"
+  },
+  "dependencies": {
+    "@balena/autokit": "^1.0.7-build-ryan-remove-testbotsdk-5cdd0a5baac7946440d140c349dca3af55dd5b56-1"
+  }
+}

@@ -1,0 +1,32 @@
+name: learn-github-actions
+run-name: ${{ github.actor }} is trying to use the autokit with a github action
+on: [push]
+jobs:
+  autokit-tests:
+    runs-on: self-hosted
+    steps:
+      - name: Chown user
+        run: |
+          sudo chown -R user /data
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+      - name: Install autokit dependencies
+        run: sudo apt-get install git make build-essential bluez rsync libusb-1.0.0-dev libdbus-1-dev udev gstreamer1.0-tools gstreamer1.0-plugins-base gstreamer1.0-plugins-bad gstreamer1.0-plugins-good python3 python3-pip python3-setuptools mdadm util-linux uhubctl  
+      - name: Install balena cli
+        run: |
+          npm install balena-cli --global --production --unsafe-perm
+          balena --version
+          sudo balena --version
+          ln -s /data/actions-runner/_work/_tool/node/14.21.3/arm64/bin/balena /usr/local/bin/balena || true
+          ln -s /data/actions-runner/_work/_tool/node/14.21.3/arm64/bin/node /usr/local/bin/node || true
+      - name: Install sd mux
+        run: |
+          sudo pip3 install usbsdmux
+          sudo /sbin/modprobe sg 
+          sudo ln -s /home/user/.local/bin/usbsdmux /usr/local/bin/usbsdmux || true
+      - name: Install node dependencies
+        run: cd src && npm ci
+      - name: Run tests
+        run: cd src && ls && sudo npm run test
